@@ -1,0 +1,29 @@
+repeat wait() until game:IsLoaded()
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local function equipTool(toolName)
+    for _, tool in pairs(LocalPlayer.Backpack:GetChildren()) do
+        if tool.Name == toolName then
+            tool.Parent = LocalPlayer.Character
+        end
+    end
+end
+
+local function attack()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "Z", false, game)
+end
+
+local bossName = "Cake Queen" -- Doughking 
+
+while true do
+    wait(0.5)
+    for _, enemy in pairs(workspace.Enemies:GetChildren()) do
+        if enemy.Name == bossName and enemy:FindFirstChild("HumanoidRootPart") and enemy.Humanoid.Health > 0 then
+            equipTool("Dragon Talon") -- i sang v khí bn dùng
+            LocalPlayer.Character.HumanoidRootPart.CFrame = enemy.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2)
+            attack()
+        end
+    end
+end
